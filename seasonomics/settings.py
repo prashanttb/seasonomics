@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-vk+t-h#+gqv2-dlt8#5(o5fcya_^5f=i1l0l_9zwu44b^==(=+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [config('ALLOWED_HOST_1'), config('ALLOWED_HOST_2')]
+ALLOWED_HOSTS = [config('ALLOWED_HOST_1'), config('ALLOWED_HOST_2'), config('ALLOWED_HOST_3')]
 
 
 # Application definition
@@ -75,22 +75,22 @@ WSGI_APPLICATION = 'seasonomics.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
-'default': {
-'ENGINE': config('DB_ENGINE'),
-'NAME': config('DB_NAME'),
-'USER': config('DB_USER'),
-'PASSWORD': config('DB_PASSWORD'),
-'HOST': config('DB_HOST'),
-'PORT': config('DB_PORT'),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-} 
+# DATABASES = {
+# 'default': {
+# 'ENGINE': config('DB_ENGINE'),
+# 'NAME': config('DB_NAME'),
+# 'USER': config('DB_USER'),
+# 'PASSWORD': config('DB_PASSWORD'),
+# 'HOST': config('DB_HOST'),
+# 'PORT': config('DB_PORT'),
+# }
+# } 
 
 
 # Password validation
