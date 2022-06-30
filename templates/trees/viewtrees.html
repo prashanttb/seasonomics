@@ -3,6 +3,7 @@
 {% block extra_resources%}
 <script src="{% static 'static1/plugins/L.Control.Sidebar.js' %}"></script>
 <script src="{% static 'static1/plugins/easy-button.js' %}"></script>
+
 <style>
   .popupimage {
     height: 200px;
@@ -218,7 +219,7 @@ label{
                           <option value="Daman and Diu">Daman and Diu</option>
                           <option value="Delhi">Delhi</option>
                           <option value="Lakshadeep">Lakshadeep</option>
-                          <option value="Pondicherry">Pondicherry</option>
+                          <option value="Puducherry">Pondicherry</option>
                         </select>
     </div>
     <div class="form-group col-md-4 multiselect">
@@ -281,8 +282,8 @@ label{
 </div>
 
 <div class="border">
-  <button class="btn" id="flowering" onclick="flower('Yes')">Flowering</button>
-  <button class="btn" id="non" onclick="flower('No')">Non Flowering</button>
+  <label for=""><input type="checkbox" class="form-check-input" id="flower" onchange="flower('Yes')"> Flowering <span id="f"></span></label><br>
+  <label for=""><input type="checkbox" name="" id="noflower" class="form-check-input" onchange="noflower('No')"> Non Flowering <span id="nf"></span></label>
 </div>
 
      
@@ -425,120 +426,120 @@ $("#inputState").change(function(){
         optionsList = Gujarat;
         break;
     case "Haryana":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Haryana;
         break;
     case "Himachal Pradesh":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = HimachalPradesh;
         break;
     case "Jammu and Kashmir":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = JammuKashmir;
         break;
     case "Jharkhand":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Jharkhand;
         break;
     case  "Karnataka":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Karnataka;
         break;
     case "Kerala":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Kerala;
         break;
     case  "Madya Pradesh":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = MadhyaPradesh;
         break;
     case "Maharashtra":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Maharashtra;
         break;
     case  "Manipur":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Manipur;
         break;
     case "Meghalaya":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Meghalaya ;
         break;
     case  "Mizoram":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Mizoram;
         break;
     case "Nagaland":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Nagaland;
         break;
     case  "Orissa":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Orissa;
         break;
     case "Punjab":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Punjab;
         break;
     case  "Rajasthan":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Rajasthan;
         break;
     case "Sikkim":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Sikkim;
         break;
     case  "Tamil Nadu":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = TamilNadu;
         break;
     case  "Telangana":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Telangana;
         break;
     case "Tripura":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Tripura ;
         break;
     case  "Uttaranchal":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Uttaranchal;
         break;
     case  "Uttar Pradesh":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = UttarPradesh;
         break;
     case "West Bengal":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = WestBengal;
         break;
     case  "Andaman and Nicobar Islands":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = AndamanNicobar;
         break;
     case "Chandigarh":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Chandigarh;
         break;
     case  "Dadar and Nagar Haveli":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = DadraHaveli;
         break;
     case "Daman and Diu":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = DamanDiu;
         break;
     case  "Delhi":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Delhi;
         break;
     case "Lakshadeep":
-        mymap.setView([19.126,72.9296],0)
+        mymap.setView([19.126,72.9296],7)
         optionsList = Lakshadeep ;
         break;
-    case  "Pondicherry":
-        mymap.setView([19.126,72.9296],0)
-        optionsList = Pondicherry;
+    case "Puducherry":
+        mymap.setView([12,80],7)
+        optionsList = Puducherry;
         break;
 }
 
@@ -576,6 +577,7 @@ $('#inputYear').change(function(){
 $('#inputMonth').change(function(){
   month = $(this).val()
   console.log(`${year}-${month}`)
+  mymap.setView([19.7515-1,75.7139-1], 4.2)
 
   fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
     .then(result=>result.json())
@@ -598,6 +600,7 @@ $('#inputMonth').change(function(){
 var modelLayer;
 $('#inputModel').change(function(){
   var model = $(this).val()
+  mymap.setView([19.7515-1,75.7139-1], 4.2)
 
   fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
     .then(result=>result.json())
@@ -617,45 +620,110 @@ $('#inputModel').change(function(){
 })
 
 var flowerShow = false;
+var nonflower = false;
 var flowerLayer;
+var nonflowerLayer;
 function flower(val){
-    
+  mymap.setView([19.7515-1,75.7139-1], 4.2)
+  
+  var MyIcon = L.icon({
+    iconUrl: '{% static "static1/images/2.png" %}',
+    iconSize:     [20, 50], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
     fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
     .then(result=>result.json())
     .then((output)=>{
 
       if(!flowerShow){
+
+        
+
         flowerLayer = L.geoJson(output,{
           onEachFeature: function(feature, layer){
             layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}</div>`)
           },
           filter:function(feature,layer){
             return feature.properties.details_2 == val;
-          }
+          },
+          pointToLayer: function(feature,latlng){
+              return L.marker(latlng,{icon: MyIcon});
+          },
         })
         flowerLayer.addTo(mymap)
         flowerShow = true
+        document.getElementById('f').innerHTML = ': 765';
 
       }else{
         console.log(flowerLayer)
         mymap.removeLayer(flowerLayer)
+        document.getElementById('f').innerHTML = '';
         flowerShow = false;
       }
+
+
+      
+
+        
+
+
       
     })
   
+}
+
+var counter = 0;
+function noflower(val){
+
+
+
+  fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
+    .then(result=>result.json())
+    .then((output)=>{
+  if(!nonflower){
+    
+        nonflowerLayer = L.geoJson(output,{
+          onEachFeature: function(feature, layer){
+            layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}</div>`)
+          },
+          filter:function(feature,layer){
+            counter=counter+1;
+            return feature.properties.details_2 == val;
+          },
+        })
+        nonflowerLayer.addTo(mymap)
+        document.getElementById('nf').innerHTML = ': 806';
+        nonflower = true
+
+        }else{
+          console.log(nonflowerLayer)
+          mymap.removeLayer(nonflowerLayer)
+          document.getElementById('nf').innerHTML = ': 806';
+          nonflower = false;
+        }
+      })
+
 }
     
 function clearMap(){
   console.log('dfdgdfg')
   mymap.setView([19.7515-1,75.7139-1], 4.2)
-  if(wmsLayer) mymap.removeLayer(wmsLayer);
   if(districtLayer) mymap.removeLayer(districtLayer);
   if(monthLayer) mymap.removeLayer(monthLayer);
   if(modelLayer) mymap.removeLayer(modelLayer);
   if(flowerLayer){
     flowerShow = false
+    $('#flower').prop("checked",false)
     mymap.removeLayer(flowerLayer);
+  } 
+  if(nonflowerLayer){
+    nonflower = false
+    $('#flower').prop("checked",false)
+    mymap.removeLayer(nonflowerLayer);
   } 
 }
  
