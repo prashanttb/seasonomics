@@ -3,6 +3,7 @@
 {% block extra_resources%}
 <script src="{% static 'static1/plugins/L.Control.Sidebar.js' %}"></script>
 <script src="{% static 'static1/plugins/easy-button.js' %}"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style>
   .popupimage {
@@ -293,8 +294,10 @@ label{
 
      
   <button class="btn btn-primary" id="clear" onclick="clearMap()">Clear Map</button>
-
-  </div>
+  <div style="text-align: center"> 
+      <button style="display: inline-block ;position: relative;" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="fa fa-power-off"></span></button> 
+  </div><div>
+</div>
 
 <script>
     let isClicked = false
@@ -326,7 +329,7 @@ label{
 
     mymap.addControl(sidebar);
 
-    var ctlEasybutton = L.easyButton('fa fa fa-bars', function () {
+    var ctlEasybutton = L.easyButton('fa fa-bars', function () {
 				sidebar.toggle();
 			}).addTo(mymap);
 			// sidebar.show();
@@ -803,6 +806,6 @@ function clearMap(){
   }
 }
  
- 
+
 </script> 
 {% endblock map%}
