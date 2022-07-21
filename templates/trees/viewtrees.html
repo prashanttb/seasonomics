@@ -3,7 +3,6 @@
 {% block extra_resources%}
 <script src="{% static 'static1/plugins/L.Control.Sidebar.js' %}"></script>
 <script src="{% static 'static1/plugins/easy-button.js' %}"></script>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style>
   .popupimage {
@@ -288,16 +287,14 @@ label{
 </div>
 
 <div class="border">
-  <label for=""><input type="checkbox" class="form-check-input" id="fruit" onchange="fruit('Yes')"> Fruiting <span id="f"></span></label><br>
-  <label for=""><input type="checkbox" name="" id="nofruit" class="form-check-input" onchange="nofruit('No')"> Non Fruiting <span id="nf"></span></label>
+  <label for=""><input type="checkbox" class="form-check-input" id="fruit" onchange="fruit('Yes')"> Fruiting <span id="fu"></span></label><br>
+  <label for=""><input type="checkbox" name="" id="nofruit" class="form-check-input" onchange="nofruit('No')"> Non Fruiting <span id="nfu"></span></label>
 </div>
 
      
   <button class="btn btn-primary" id="clear" onclick="clearMap()">Clear Map</button>
-  <div style="text-align: center"> 
-      <button style="display: inline-block ;position: relative;" id="closebutton" name="closebutton" class="btn btn-secondary"><span class="fa fa-power-off"></span></button> 
-  </div><div>
-</div>
+
+  </div>
 
 <script>
     let isClicked = false
@@ -329,7 +326,7 @@ label{
 
     mymap.addControl(sidebar);
 
-    var ctlEasybutton = L.easyButton('fa fa-bars', function () {
+    var ctlEasybutton = L.easyButton('fa fa fa-bars', function () {
 				sidebar.toggle();
 			}).addTo(mymap);
 			// sidebar.show();
@@ -599,6 +596,7 @@ $('#inputMonth').change(function(){
         }
       })
       monthLayer.addTo(mymap)
+      
     })
 
 })
@@ -607,6 +605,9 @@ $('#inputMonth').change(function(){
 
 var modelLayer;
 $('#inputModel').change(function(){
+  if(modelLayer){
+    mymap.removeLayer(modelLayer)
+  }
   var model = $(this).val()
   mymap.setView([19.7515-1,75.7139-1], 4.2)
 
@@ -631,7 +632,9 @@ var flowerShow = false;
 var nonflower = false;
 var flowerLayer;
 var nonflowerLayer;
+var counter = 0;
 function flower(val){
+  counter=0;
   mymap.setView([19.7515-1,75.7139-1], 4.2)
   
   var MyIcon = L.icon({
@@ -649,13 +652,12 @@ function flower(val){
 
       if(!flowerShow){
 
-        
-
         flowerLayer = L.geoJson(output,{
           onEachFeature: function(feature, layer){
             layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}</div>`)
           },
           filter:function(feature,layer){
+            if(feature.properties.details_2 == val) counter=counter+1;
             return feature.properties.details_2 == val;
           },
           pointToLayer: function(feature,latlng){
@@ -664,7 +666,7 @@ function flower(val){
         })
         flowerLayer.addTo(mymap)
         flowerShow = true
-        document.getElementById('f').innerHTML = ': 765';
+        document.getElementById('f').innerHTML = ': '+counter;
 
       }else{
         console.log(flowerLayer)
@@ -673,20 +675,14 @@ function flower(val){
         flowerShow = false;
       }
 
-
-      
-
-        
-
-
       
     })
   
 }
 
-var counter = 0;
-function noflower(val){
 
+function noflower(val){
+counter=0;
 
 
   fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
@@ -699,18 +695,18 @@ function noflower(val){
             layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}</div>`)
           },
           filter:function(feature,layer){
-            counter=counter+1;
+            if(feature.properties.details_2 == val) counter=counter+1;
             return feature.properties.details_2 == val;
           },
         })
         nonflowerLayer.addTo(mymap)
-        document.getElementById('nf').innerHTML = ': 806';
+        document.getElementById('nf').innerHTML = ': '+counter;
         nonflower = true
 
         }else{
           console.log(nonflowerLayer)
           mymap.removeLayer(nonflowerLayer)
-          document.getElementById('nf').innerHTML = ': 806';
+          document.getElementById('nf').innerHTML = ': ';
           nonflower = false;
         }
       })
@@ -722,6 +718,7 @@ var nf = false;
 var fruitLayer;
 var nonfruitLayer;
 function nofruit(val){
+  counter=0;
   fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
     .then(result=>result.json())
     .then((output)=>{
@@ -732,27 +729,37 @@ function nofruit(val){
             layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}<br> Fruiting: ${feature.properties.details_3}</div>`)
           },
           filter:function(feature,layer){
-            counter=counter+1;
+            if(feature.properties.details_3 == val)counter=counter+1;
             return feature.properties.details_3 == val;
           },
         })
         nonfruitLayer.addTo(mymap)
-        document.getElementById('nf').innerHTML = ': 806';
+        document.getElementById('nfu').innerHTML = ': '+counter;
         nf = true
 
         }else{
           console.log(nonfruitLayer)
           mymap.removeLayer(nonfruitLayer)
-          document.getElementById('nf').innerHTML = ': 806';
+          document.getElementById('nfu').innerHTML = ': ';
           nf = false;
         }
       })
 }
 
 function fruit(val){
+  counter=0;
   fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
     .then(result=>result.json())
     .then((output)=>{
+
+      var MyIcon = L.icon({
+          iconUrl: '{% static "static1/images/fruit1.png" %}',
+          iconSize:     [50, 50], // size of the icon
+          shadowSize:   [50, 64], // size of the shadow
+          iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+          shadowAnchor: [4, 62],  // the same for the shadow
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+      });
   if(!f){
     
         fruitLayer = L.geoJson(output,{
@@ -760,18 +767,21 @@ function fruit(val){
             layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}<br> Fruiting: ${feature.properties.details_3}</div>`)
           },
           filter:function(feature,layer){
-            counter=counter+1;
+            if(feature.properties.details_3 == val) counter=counter+1;
             return feature.properties.details_3 == val;
+          },pointToLayer: function(feature,latlng){
+              return L.marker(latlng,{icon: MyIcon});
           },
         })
         fruitLayer.addTo(mymap)
-        document.getElementById('f').innerHTML = ': 806';
-        f = true
+        // console.log(counter)
+        document.getElementById('fu').innerHTML = ': '+counter;
+        f = true;
 
         }else{
           // console.log(nonfruitLayer)
           mymap.removeLayer(fruitLayer)
-          document.getElementById('f').innerHTML = ': 806';
+          document.getElementById('fu').innerHTML = ': ';
           f = false;
         }
       })
@@ -783,29 +793,34 @@ function clearMap(){
   if(districtLayer) mymap.removeLayer(districtLayer);
   if(monthLayer) mymap.removeLayer(monthLayer);
   if(modelLayer) mymap.removeLayer(modelLayer);
+  document.getElementById('inputModel').selectedIndex='Select Model';
   if(flowerLayer){
     flowerShow = false
     $('#flower').prop("checked",false)
+    document.getElementById('f').innerHTML = '';
     mymap.removeLayer(flowerLayer);
   } 
   if(nonflowerLayer){
     nonflower = false
-    $('#flower').prop("checked",false)
+    $('#noflower').prop("checked",false)
+    document.getElementById('nf').innerHTML = ': ';
     mymap.removeLayer(nonflowerLayer);
   }
   
   if(fruitLayer){
     f = false
     $('#fruit').prop("checked",false)
+    document.getElementById('fu').innerHTML = ': ';
     mymap.removeLayer(fruitLayer);
   } 
   if(nonfruitLayer){
     nf = false
     $('#nofruit').prop("checked",false)
+    document.getElementById('nfu').innerHTML = ': ';
     mymap.removeLayer(nonfruitLayer);
   }
 }
  
-
+ 
 </script> 
 {% endblock map%}
