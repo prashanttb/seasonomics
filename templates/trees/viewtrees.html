@@ -769,8 +769,6 @@ function fruit(val){
           filter:function(feature,layer){
             if(feature.properties.details_3 == val) counter=counter+1;
             return feature.properties.details_3 == val;
-          },pointToLayer: function(feature,latlng){
-              return L.marker(latlng,{icon: MyIcon});
           },
         })
         fruitLayer.addTo(mymap)
