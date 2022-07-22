@@ -3,7 +3,9 @@
 {% block extra_resources%}
 <script src="{% static 'static1/plugins/L.Control.Sidebar.js' %}"></script>
 <script src="{% static 'static1/plugins/easy-button.js' %}"></script>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
   .popupimage {
     height: 200px;
@@ -176,6 +178,8 @@ label{
 <div id="mapid" style="width: 100%; height: 100%;"></div>
 <div id="sidebar" style="background-color: rgba(255, 255, 255); height: 80%;">                <!-- Main container -->
 
+<i class="fa-regular fa-circle-xmark" onclick="sidebar.hide()" style="cursor:pointer;"></i>
+
 <div class="border">
 
   <form>
@@ -230,7 +234,15 @@ label{
     </div>
 
 
-    <label for="inputYear">Year</label>
+    
+
+
+  
+  </form>
+</div>
+
+<div class="border">
+  <label for="inputYear">Year</label>
   <select class="form-control" id="inputYear">
     <option value="None">---Select Year---</option>
     <option value="2020">2020</option>
@@ -238,8 +250,9 @@ label{
     <option value="2022">2022</option>                
   </select>
 
-    <label for="inputMonth">Month</label>
-  <select class="form-control" id="inputMonth">
+    <label for="inputMonth">Month</label><br>
+    <label for="inputMonth">From</label>
+  <select class="form-control" id="inputMonthf">
     <option value="SelectMonth">Select Month</option>
     <option value="01">January</option>
     <option value="02">February</option>
@@ -255,9 +268,37 @@ label{
     <option value="12">December</option>                     
   </select>
 
+  <label for="inputMonth">To</label>
+  <select class="form-control" id="inputMontht" onchange="month()">
+    <option value="SelectMonth">Select Month</option>
+    <option value="01">January</option>
+    <option value="02">February</option>
+    <option value="03">March</option>
+    <option value="04">April</option>
+    <option value="05">May</option>
+    <option value="06">June</option>
+    <option value="07">July</option>
+    <option value="08">August</option>
+    <option value="09">September</option>
+    <option value="10">Octuber</option>
+    <option value="11">November</option>
+    <option value="12">December</option>                     
+  </select>
+</div>
 
-  
-  </form>
+
+<div class="border">
+  <label for="inputState">Latitude</label>
+  <select class="form-control" id="inputLat" onchange="latit()">
+    <option value="SelectState">-- Select Latitude --</option>
+    <option value="Zone 1">Zone 1</option>
+    <option value="Zone 2">Zone 2</option>
+    <option value="Zone 3">Zone 3</option>
+    <option value="Zone 4">Zone 4</option>
+    <option value="Zone 5">Zone 5</option>
+    <option value="Zone 6">Zone 6</option>
+    <option value="Zone 7">Zone 7</option>
+  </select>
 </div>
 
 
@@ -325,12 +366,20 @@ label{
     });
 
     mymap.addControl(sidebar);
+    //<i class="fa-solid fa-bars"></i>
 
-    var ctlEasybutton = L.easyButton('fa fa fa-bars', function () {
+    var ctlEasybutton = L.easyButton('fa-solid fa-bars', function () {
 				sidebar.toggle();
 			}).addTo(mymap);
 			// sidebar.show();
 
+
+var range = [];
+var latLayer;
+var year;
+var from;
+var to;
+var counter = 0;
 
 var AndraPradesh = ["Anantapur","Chittoor","East Godavari","Guntur","Kadapa","Krishna","Kurnool","Prakasam","Nellore","Srikakulam","Visakhapatnam","Vizianagaram","West Godavari"];
 var ArunachalPradesh = ["Anjaw","Changlang","Dibang Valley","East Kameng","East Siang","Kra Daadi","Kurung Kumey","Lohit","Longding","Lower Dibang Valley","Lower Subansiri","Namsai","Papum Pare","Siang","Tawang","Tirap","Upper Siang","Upper Subansiri","West Kameng","West Siang","Itanagar"];
@@ -592,7 +641,8 @@ $('#inputMonth').change(function(){
           layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}</div>`)
         },
         filter:function(feature,layer){
-          return feature.properties.end.includes(`${year}/${month}`);
+          console.log(typeof `${year}-${month}`)
+          return feature.properties.end.includes('2022/12');
         }
       })
       monthLayer.addTo(mymap)
@@ -601,7 +651,7 @@ $('#inputMonth').change(function(){
 
 })
 
-})
+}) 
 
 var modelLayer;
 $('#inputModel').change(function(){
@@ -632,7 +682,6 @@ var flowerShow = false;
 var nonflower = false;
 var flowerLayer;
 var nonflowerLayer;
-var counter = 0;
 function flower(val){
   counter=0;
   mymap.setView([19.7515-1,75.7139-1], 4.2)
@@ -784,12 +833,96 @@ function fruit(val){
         }
       })
 }
+
+
+
+var lat;
+var l1;
+var l2;
+range = [];
+function latit(){
+  range=[]
+  lat = document.getElementById('inputLat').value
+  counter=0;
+
+  console.log(`lat ${lat}`)
+  if(lat == 'Zone 1'){
+    for(i=9;i<=13;i++){
+      range.push(i);
+    }
+  }
+  if(lat == 'Zone 2'){
+    for(i=14;i<=17;i++){
+      range.push(i);
+    }
+  }
+  if(lat == 'Zone 3'){
+    for(i=18;i<=21;i++){
+      range.push(i);
+    }
+  }
+  if(lat == 'Zone 4'){
+    for(i=22;i<=25;i++){
+      range.push(i);
+    }
+  }
+  if(lat == 'Zone 5'){
+    for(i=25;i<=29;i++){
+      range.push(i);
+    }
+  }
+  if(lat == 'Zone 6'){
+    for(i=30;i<=33;i++){
+      range.push(i);
+    }
+  }
+  if(lat == 'Zone 7'){
+    for(i=34;i<=37;i++){
+      range.push(i);
+    }
+  }
+  fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
+    .then(result=>result.json())
+    .then((output)=>{
+      latLayer = L.geoJson(output,{
+        onEachFeature: function(feature, layer){
+          layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}   <br>${feature.geometry.coordinates[1]}</div>`)
+        },
+        filter:function(feature,layer){
+          //console.log(feature.geometry.coordinates[1])
+          //console.log(parseInt(feature.properties.end.slice(5,7)) in range)
+          if(range.indexOf(parseInt(feature.geometry.coordinates[1]))!=-1) counter=counter+1;
+          //console.log(feature.geometry.coordinates[1])
+          //if(parseInt(feature.geometry.coordinates[1]) in range) console.log(feature.geometry.coordinates[1])
+          return range.indexOf(parseInt(feature.geometry.coordinates[1]))!=-1;
+        }
+      })
+      latLayer.addTo(mymap)
+      console.log(counter)
+    })
+
+}
+
+
     
 function clearMap(){
   console.log('dfdgdfg')
   mymap.setView([19.7515-1,75.7139-1], 4.2)
   if(districtLayer) mymap.removeLayer(districtLayer);
-  if(monthLayer) mymap.removeLayer(monthLayer);
+  if(latLayer) {
+    mymap.removeLayer(latLayer);
+    document.getElementById('inputLat').selectedIndex='-- Select Latitude --';
+  }
+  if(monthLayer){
+    year='';
+    from='';
+    to='';
+    document.getElementById('inputYear').selectedIndex='None';
+    document.getElementById('inputMonthf').selectedIndex='SelectMoth';
+    document.getElementById('inputMontht').selectedIndex='SelectMonth';
+
+    mymap.removeLayer(monthLayer)
+  }
   if(modelLayer) mymap.removeLayer(modelLayer);
   document.getElementById('inputModel').selectedIndex='Select Model';
   if(flowerLayer){
@@ -819,6 +952,45 @@ function clearMap(){
   }
 }
  
+
+function month(){
+  var year = document.getElementById('inputYear')
+  var from = document.getElementById('inputMonthf')
+  var to = document.getElementById('inputMontht')
+  
+  if(year.value!='None' || from.value!='SelectMonth' || to.value!='SelectMonth'){
+    counter=0;
+    range=[]
+    for(i=parseInt(from.value);i<=parseInt(to.value);i++){
+      range.push(i);
+    }
+    console.log(`${from.value} ${to.value} ${year.value}`)
+  
+    fetch('https://geonode.communitygis.in/geoserver/geonode/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geonode%3ACUBE_Seasonomics___all_versions___English&outputFormat=application%2Fjson')
+    .then(result=>result.json())
+    .then((output)=>{
+      monthLayer = L.geoJson(output,{
+        onEachFeature: function(feature, layer){
+          layer.bindPopup(`<div>Location of Observation: ${feature.properties.Location_o}<br>Model System: ${feature.properties.model_syst}<br>Flowering: ${feature.properties.details_2}</div>`)
+        },
+        filter:function(feature,layer){
+          if(feature.properties.end.slice(0,4)==year.value && range.indexOf(parseInt(feature.properties.end.slice(5,7)))!=-1) counter=counter+1;
+          //console.log(parseInt(feature.properties.end.slice(5,7)) in range)
+          console.log(`${range} ${parseInt(feature.properties.end.slice(5,7))}`)
+          //return feature.properties.end.slice(0,4)==year.value && parseInt(feature.properties.end.slice(5,7)) in range;
+          return feature.properties.end.slice(0,4)==year.value && range.indexOf(parseInt(feature.properties.end.slice(5,7)))!=-1;
+        }
+      })
+      monthLayer.addTo(mymap)
+      console.log(counter)
+    })
+
+  }else{
+    console.log('cannot plot')
+  }
+
+
+}
  
 </script> 
 {% endblock map%}
